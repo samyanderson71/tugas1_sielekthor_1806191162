@@ -2,32 +2,118 @@ package apap.tugas.sielekthor.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 //import javax.validation.constraints.NotNull;
 //import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.time.LocalTime;
-import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter @Getter
-public class BarangModel {
+
+@Entity
+@Table(name = "barang")
+public class MemberModel {
+
+    public Long getIdBarang() {
+        return idBarang;
+    }
+
+    public void setIdBarang(Long idBarang) {
+        this.idBarang = idBarang;
+    }
+
+    public Long getKodeBarang() {
+        return kodeBarang;
+    }
+
+    public void setKodeBarang(Long kodeBarang) {
+        this.kodeBarang = kodeBarang;
+    }
+
+    public Long getHargaBarang() {
+        return hargaBarang;
+    }
+
+    public void setHargaBarang(Long hargaBarang) {
+        this.hargaBarang = hargaBarang;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getMerk() {
+        return merk;
+    }
+
+    public void setMerk(String merk) {
+        this.merk = merk;
+    }
+
+    public String getDeskripsiBarang() {
+        return deskripsiBarang;
+    }
+
+    public void setDeskripsiBarang(String deskripsiBarang) {
+        this.deskripsiBarang = deskripsiBarang;
+    }
+
+    public Long getStok() {
+        return stok;
+    }
+
+    public void setStok(Long stok) {
+        this.stok = stok;
+    }
+
+    public String getAlamatCabang() {
+        return alamatCabang;
+    }
+
+    public void setAlamatCabang(String alamatCabang) {
+        this.alamatCabang = alamatCabang;
+    }
+
+    public Integer getJumlahGaransi() {
+        return jumlahGaransi;
+    }
+
+    public void setJumlahGaransi(Integer jumlahGaransi) {
+        this.jumlahGaransi = jumlahGaransi;
+    }
+
+    public TipeModel getTipeModel() {
+        return tipeModel;
+    }
+
+    public void setTipeModel(TipeModel tipeModel) {
+        this.tipeModel = tipeModel;
+    }
+
+    public List<PembelianBarangModel> getListPembelianBarangModel() {
+        return listPembelianBarangModel;
+    }
+
+    public void setListPembelianBarangModel(List<PembelianBarangModel> listPembelianBarangModel) {
+        this.listPembelianBarangModel = listPembelianBarangModel;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idBarang;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,15 +154,16 @@ public class BarangModel {
 
 
     //  Relasi dengan TipeModel
-    @ManyToOne(mappedBy = "barang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PegawaiModel> listPegawai;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    private TipeModel tipeModel;
 
-    //  Relasi dengan PembelianModel
-    @ManyToMany
-    @JoinTable(
-            name = "cabang_menu",
-            joinColumns = @JoinColumn(name = "no_cabang"),
-            inverseJoinColumns = @JoinColumn(name = "no_menu"))
-    List<PembelianModel> listMenu;
+    //  Relasi dengan PembelianBarangModel
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<PembelianBarangModel> listPembelianBarangModel;
+//    @JoinTable(
+//            name = "cabang_menu",
+//            joinColumns = @JoinColumn(name = "no_cabang"),
+//            inverseJoinColumns = @JoinColumn(name = "no_menu"))
+//    List<PembelianModel> listMenu;
 }
-}
+

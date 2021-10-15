@@ -23,11 +23,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter @Getter
+
+@Entity
+@Table(name = "member")
 public class MemberModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idMember;
 
     @NotNull
     @Size(max = 30)
@@ -48,4 +51,46 @@ public class MemberModel {
     @Column(name="tanggal_Lahir")
     private Date tanggalPendaftaran;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PembelianModel> listPembelianModel;
+
+    public Long getIdMember() {
+        return idMember;
+    }
+
+    public void setIdMember(Long idMember) {
+        this.idMember = idMember;
+    }
+
+    public String getNamaMember() {
+        return namaMember;
+    }
+
+    public void setNamaMember(String namaMember) {
+        this.namaMember = namaMember;
+    }
+
+    public String getJenisKelamin() {
+        return jenisKelamin;
+    }
+
+    public void setJenisKelamin(String jenisKelamin) {
+        this.jenisKelamin = jenisKelamin;
+    }
+
+    public Date getTanggalLahir() {
+        return tanggalLahir;
+    }
+
+    public void setTanggalLahir(Date tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
+    }
+
+    public Date getTanggalPendaftaran() {
+        return tanggalPendaftaran;
+    }
+
+    public void setTanggalPendaftaran(Date tanggalPendaftaran) {
+        this.tanggalPendaftaran = tanggalPendaftaran;
+    }
 }

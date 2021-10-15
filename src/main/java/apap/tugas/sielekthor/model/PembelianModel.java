@@ -26,119 +26,98 @@ import java.util.List;
         @NotNull
         @Size(min=13, max = 13)
         @Column(name = "nomor_invoice", unique=true)
-        private String nip;
+        private String nomorInvoice;
 
         @NotNull
-        @Column(name = "nik_pilot")
-        private String nik;
+        @Column(name = "total")
+        private Long total;
 
         @NotNull
         @Temporal(TemporalType.DATE)
         @DateTimeFormat(pattern = "yyyy-MM-dd")
-        @Column(name = "tanggal_lahir_pilot")
-        private Date tanggalLahir;
+        @Column(name = "tanggal_pembelian")
+        private Date tanggalPembelian;
 
         @NotNull
-        @Column(name = "tempat_lahir_pilot")
-        private String tempatLahir;
+        @Column(name = "isCash")
+        private Boolean isCash;
 
-        @NotNull
-        @Column(name = "jenis_kelamin_pilot")
-        private Integer jenisKelamin;
 
-        @OneToMany(mappedBy = "pilotModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        private List<PilotPenerbanganModel> listPilotPenerbanganModel;
+        @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+        private PembelianBarangModel pembelianBarangModel;
 
-        @ManyToOne(fetch = FetchType.EAGER, optional = false)
-        @JoinColumn(name = "maskapai_id", referencedColumnName = "id_maskapai", nullable = false)
-        @OnDelete(action = OnDeleteAction.CASCADE)
-        @JsonIgnore
-        private MaskapaiModel maskapaiModel;
+        @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
+        private MemberModel memberModel;
 
-        @ManyToOne(fetch = FetchType.EAGER, optional = false)
-        @JoinColumn(name = "akademi_id", referencedColumnName = "id_akademi", nullable = false)
-        @OnDelete(action = OnDeleteAction.CASCADE)
-        @JsonIgnore
-        private AkademiModel akademiModel;
-
-        public void setIdPilot(Long id) {
-            this.idPilot = id;
+        public PembelianModel() {
         }
 
-        public Long getIdPilot() {
-            return this.idPilot;
+        public Long getIdPembelian() {
+            return idPembelian;
         }
 
-        public String getNamaPilot() {
-            return this.namaPilot;
+        public void setIdPembelian(Long idPembelian) {
+            this.idPembelian = idPembelian;
         }
 
-        public void setNamaPilot(String namaPilot) {
-            this.namaPilot = namaPilot;
+        public String getNamaAdmin() {
+            return namaAdmin;
         }
 
-        public String getNik() {
-            return this.nik;
+        public void setNamaAdmin(String namaAdmin) {
+            this.namaAdmin = namaAdmin;
         }
 
-        public void setNik(String nik) {
-            this.nik = nik;
+        public String getNomorInvoice() {
+            return nomorInvoice;
         }
 
-        public String getNip() {
-            return this.nip;
+        public void setNomorInvoice(String nomorInvoice) {
+            this.nomorInvoice = nomorInvoice;
         }
 
-        public void setNip(String nip) {
-            this.nip = nip;
+        public Long getTotal() {
+            return total;
         }
 
-        public Date getTanggalLahir() {
-            return this.tanggalLahir;
+        public void setTotal(Long total) {
+            this.total = total;
         }
 
-        public void setTanggalLahir(Date tanggalLahir) {
-            this.tanggalLahir = tanggalLahir;
+        public Date getTanggalPembelian() {
+            return tanggalPembelian;
         }
 
-        public Integer getJenisKelamin() {
-            return this.jenisKelamin;
+        public void setTanggalPembelian(Date tanggalPembelian) {
+            this.tanggalPembelian = tanggalPembelian;
         }
 
-        public void setJenisKelamin(Integer jenisKelamin) {
-            this.jenisKelamin = jenisKelamin;
+        public Boolean getIsCash() {
+            return isCash;
         }
 
-        public MaskapaiModel getMaskapaiModel() {
-            return this.maskapaiModel;
+        public void setIsCash(Boolean isCash) {
+            this.isCash = isCash;
         }
 
-        public void setMaskapaiModel(MaskapaiModel maskapaiModel) {
-            this.maskapaiModel = maskapaiModel;
-        }
-        public AkademiModel getAkademiModel() {
-            return this.akademiModel;
+
+        public PembelianBarangModel getPembelianBarangModel() {
+            return pembelianBarangModel;
         }
 
-        public void setAkademiModel(AkademiModel akademiModel) {
-            this.akademiModel = akademiModel;
+        public void setPembelianBarangModel(PembelianBarangModel pembelianBarangModel) {
+            this.pembelianBarangModel = pembelianBarangModel;
         }
 
-        public List<PilotPenerbanganModel> getListPilotPenerbanganModel() {
-            return this.listPilotPenerbanganModel;
+        public MemberModel getMemberModel() {
+            return this.memberModel;
         }
 
-        public void addListPilotPenerbanganModel(PilotPenerbanganModel pilotPenerbanganModel) {
-            this.listPilotPenerbanganModel.add(pilotPenerbanganModel);
+        public void setMemberModel(MemberModel memberModel) {
+            this.memberModel = memberModel;
         }
 
-        public String getTempatLahir() {
-            return this.tempatLahir;
-        }
 
-        public void setTempatLahir(String tempatLahir) {
-            this.tempatLahir = tempatLahir;
-        }
 
     }
-}
+
