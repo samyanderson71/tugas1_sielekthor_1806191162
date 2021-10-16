@@ -1,7 +1,6 @@
 package apap.tugas.sielekthor.service;
 
-import apap.tugas.sielekthor.model.PembelianModel;
-import apap.tugas.sielekthor.model.TipeModel;
+import apap.tugas.sielekthor.model.*;
 
 import java.util.List;
 
@@ -10,11 +9,11 @@ public interface PembelianService {
     PembelianModel deletePembelian(PembelianModel pembelianModel);
     PembelianModel getPembelianByNomorInvoice(String nomorInvoice);
     List<PembelianModel> getAllPembelian();
-    PembelianModel getByIdPembelian(Long id);
+    PembelianModel getByIdPembelian(Long idPembelian);
+    String checkNomorInvoice(PembelianModel pembelianModel);
     String randomString();
-    List<PembelianModel> getStokBarangHabis(TipeModel tipe);
-    List<PembelianModel> getPembelianMemberModelAndTipeModel(MemberModel MemberModel, TipeModel tipeModel);
-    List<PembelianModel> getPembelianMemberModel(MemberModel MemberModel);
-    List<PembelianModel> getPembelianTipeModel(TipeModel tipeModel);
+    List<Boolean> getPembelianMemberModelAndIsCash(MemberModel MemberModel, Boolean IsCash);
+    List<Boolean> getPembelianMemberModel(MemberModel MemberModel);
+    List<Boolean> getPembelianIsCash(Boolean isCash);
     List<PembelianModel> getTotalPembelianMember();
 }

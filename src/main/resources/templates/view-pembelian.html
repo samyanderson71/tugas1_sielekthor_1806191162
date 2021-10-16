@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lihat Pembelian</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar(current='Home')"></nav>
+<br>
+<br>
+<div class = "card">
+    <div class= "card-header bg-primary" style = "width: 50%; margin: auto;">
+        <h1 class = "text-center" style="color: aliceblue;">Detail Pembelian</h1>
+    </div>
+    <div class= "card-body">
+        <div class = "container">
+            <div class= "row justify-content-center">
+                <div class= "col-5">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p>No Invoice</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${pembelian.nomorInvoice}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Total Harga</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${pembelian.total}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Member</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${pembelian.memberModel.getNamaMember()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Tanggal Pembelian</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${pembelian.tanggalPembelian}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Nama Admin</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${pembelian.namaAdmin}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Metode Pembayaran</p>
+                                </div>
+                                <div class="col">
+                                    <p th:if="${pembelian.isCash == 1}">Tunai</p>
+                                    <p th:if="${pembelian.isCash == 2}">Cicilan</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class = "float-sm-right">
+                                <a th:href="@{/barang/ubah/} + ${barang.idBarang}" class="btn btn-outline-primary">Ubah</a>
+                                <a th:href="@{/barang/delete/} + ${barang.idBarang}" class="btn btn-outline-danger">Hapus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class = container>
+    <label><b>Nama Pembelian :</b></label>
+    <form th:action = "@{/barang/}+${idBarang}+@{/pembelian/tambah}" th:object = "${pembelianBarang}" class="form-group-inline" method="POST">
+        <input type="hidden" name="BarangModel" th:value="${barang.idBarang}">
+        <select class="form-control" name="PembelianModel" required>
+            <option value="" disabled selected>Pilih Pembelian</option>
+            <option th:each="pembelian : ${listPembelian}"
+                    th:value="${pembelian.idPembelian}"
+                    th:text="${pembelian.namaPembelian}"> </option>
+        </select>
+        <button class = "btn btn-primary" type = "submit" value="Submit">Tambah</button>
+    </form>
+</div>
+
+<br>
+<br>
+<br>
+<div class = container>
+    <table th:if="${listPembelianBarang.size() != 0}" class = "table">
+        <h2 class = "text-center">Jadwal Bertugas</h2>
+        <thead class = "bg-primary" style="color: aliceblue">
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>NIP</th>
+            <th>Tempat Lahir</th>
+            <th>Tanggal Lahir</th>
+            <th>Jenis Kelamin</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pembelianbarang, iterationStatus : ${listPembelianBarang}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${pembelianbarang.pembelianModel.getNamaPembelian()}"></td>
+            <td th:text="${pembelianbarang.pembelianModel.getNip()}"></td>
+            <td th:text="${pembelianbarang.pembelianModel.getTanggalLahir()}"></td>
+            <td th:text="${pembelianbarang.pembelianModel.getTempatLahir()}"></td>
+            <td th:if="${pembelianbarang.pembelianModel.getJenisKelamin() == 1}">Laki-laki</td>
+            <td th:if="${pembelianbarang.pembelianModel.getJenisKelamin() == 2}">Perempuan</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <h3 class="text-center " th:if="${listPembelianBarang.size() == 0}">
+        Barang ini belum memiliki <br> pembelian
+    </h3>
+</div>
+</body>
+</html>

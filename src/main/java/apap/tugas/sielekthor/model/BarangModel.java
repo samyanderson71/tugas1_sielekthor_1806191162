@@ -2,6 +2,7 @@ package apap.tugas.sielekthor.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "barang")
-public class MemberModel {
+public class BarangModel implements Serializable {
 
     public Long getIdBarang() {
         return idBarang;
@@ -31,11 +32,11 @@ public class MemberModel {
         this.idBarang = idBarang;
     }
 
-    public Long getKodeBarang() {
+    public String getKodeBarang() {
         return kodeBarang;
     }
 
-    public void setKodeBarang(Long kodeBarang) {
+    public void setKodeBarang(String kodeBarang) {
         this.kodeBarang = kodeBarang;
     }
 
@@ -79,14 +80,6 @@ public class MemberModel {
         this.stok = stok;
     }
 
-    public String getAlamatCabang() {
-        return alamatCabang;
-    }
-
-    public void setAlamatCabang(String alamatCabang) {
-        this.alamatCabang = alamatCabang;
-    }
-
     public Integer getJumlahGaransi() {
         return jumlahGaransi;
     }
@@ -115,10 +108,12 @@ public class MemberModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBarang;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long kodeBarang;
 
+    @NotNull
+    @Column(name = "kode_barang")
+    private String kodeBarang;
+
+    @NotNull
     @Column(name = "harga_barang")
     private Long hargaBarang;
 
@@ -143,13 +138,7 @@ public class MemberModel {
     private Long stok;
 
     @NotNull
-    @Size(max = 30)
-    @Column(name = "alamat_cabang", nullable = false)
-    private String alamatCabang;
-
-    @NotNull
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "HH:mm")
     private Integer jumlahGaransi;
 
 

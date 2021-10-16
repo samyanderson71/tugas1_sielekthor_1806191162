@@ -1,14 +1,14 @@
 package apap.tugas.sielekthor.service;
 
 
+import apap.tugas.sielekthor.model.PembelianModel;
 import apap.tugas.sielekthor.model.TipeModel;
 
 import java.util.List;
 
 public interface TipeService {
-    void addTipe(TipeModel tipeModel);
-    TipeModel updateTipe(TipeModel tipeModel);
+    TipeModel addTipe(TipeModel tipeModel);
     TipeModel deleteTipe(TipeModel tipeModel);
+    TipeModel getTipeById(Long id);
     List<TipeModel> getAllTipe();
-    TipeModel getByTipeBarang(Long id);
 }

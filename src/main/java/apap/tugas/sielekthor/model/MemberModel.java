@@ -26,7 +26,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "member")
-public class MemberModel {
+public class MemberModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class MemberModel {
     private Date tanggalLahir;
 
     @NotNull
-    @Column(name="tanggal_Lahir")
+    @Column(name="tanggal_Pendaftaran")
     private Date tanggalPendaftaran;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

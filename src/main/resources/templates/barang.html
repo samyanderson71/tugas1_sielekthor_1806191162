@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Barang</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar(current='Home')"></nav>
+
+<div class="container-fluid">
+
+    <br>
+    <br>
+    <br>
+    <a th:href="@{/barang/add}" class="btn btn-primary">Tambah Barang</a>
+    <br>
+    <br>
+
+    <section>
+        <table class = "table">
+            <h1 class = "text-center">Daftar barang</h2>
+                <br>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Tipe</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="barang, iterationStatus : ${listBarang}">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${barang.nama}"></td>
+                    <td th:text="${barang.hargaBarang}"></td>
+                    <td th:text="${barang.tipeModel.getNamaTipe()}"></td>
+                    <td th:text="${barang.stok}"></td>
+                    <td>
+                        <a th:href="@{/barang/detail/} + ${barang.idBarang}" class="btn btn-primary">Lihat</a>
+                        <a th:href="@{/barang/ubah/} + ${barang.idBarang}" class="btn btn-outline-primary">Ubah</a>
+                        <a th:href="@{/barang/delete/} + ${barang.idBarang}" class="btn btn-outline-danger">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+        </table>
+    </section>
+</div>
+</body>

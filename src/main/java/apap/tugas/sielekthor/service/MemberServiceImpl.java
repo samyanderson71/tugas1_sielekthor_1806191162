@@ -1,20 +1,20 @@
 package apap.tugas.sielekthor.service;
 
-import apap.tugas.sielekthor.model.MemberModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-
-import apap.tugas.sielekthor.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import apap.tugas.sielekthor.model.MemberModel;
+import apap.tugas.sielekthor.repository.MemberDb;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import apap.tugas.sielekthor.repository.MemberDb;
+import apap.tugas.sielekthor.model.*;
 import java.util.List;
 
-import java.util.List;
+@Service
+@Transactional
 
-public class MemberServiceImpl {
+
+public class MemberServiceImpl implements MemberService {
     @Autowired
     MemberDb memberDb;
 
@@ -27,7 +27,7 @@ public class MemberServiceImpl {
     public List<MemberModel> getAllMember() { return memberDb.findAll(Sort.by(Sort.Direction.ASC, "namaMember")); }
 
     @Override
-    public MemberModel getMemberById(Long id){
+    public MemberModel getMemberByIdMember(Long id){
         return memberDb.findById(id).get();
     }
 

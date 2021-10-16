@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import apap.tugas.sielekthor.repository.PembelianBarangDb;
 import java.util.List;
-public class PembelianBarangServiceImpl {
+
+@Service
+@Transactional
+public class PembelianBarangServiceImpl implements PembelianBarangService {
     @Autowired
     PembelianBarangDb pembelianBarangDb;
 
     @Override
-    public void addPembelianBarang(PembelianBarangModel pembelianBarangModel) {
-        pembelianBarangDb.save(pembelianBarangModel);
+    public PembelianBarangModel addPembelianBarang(PembelianBarangModel pembelianBarangModel) {
+        return pembelianBarangDb.save(pembelianBarangModel);
     }
 
     @Override
@@ -21,19 +24,6 @@ public class PembelianBarangServiceImpl {
         return pembelianBarangDb.findById(id).get();
     }
 
-    @Override
-    public PembelianBarangModel updatePembelianBarang(PembelianBarangModel pembelianBarang) {
-        pembelianBarangDb.save(pembelianBarang);
-
-        return pembelianBarang;
-    }
-
-    @Override
-    public PembelianBarangModel deletePembelianBarang(PembelianBarangModel pembelianBarang) {
-        pembelianBarangDb.delete(pembelianBarang);
-
-        return pembelianBarang;
-    }
 
 }
 

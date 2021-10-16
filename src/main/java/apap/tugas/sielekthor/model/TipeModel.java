@@ -1,5 +1,6 @@
 package apap.tugas.sielekthor.model;
 
+import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tipe")
-public class TipeModel {
+public class TipeModel implements Serializable {
     public Long getIdTipe() {
         return idTipe;
     }

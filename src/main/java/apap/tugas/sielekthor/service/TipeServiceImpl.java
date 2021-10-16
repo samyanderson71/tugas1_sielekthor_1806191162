@@ -9,22 +9,26 @@ import org.springframework.transaction.annotation.Transactional;
 import apap.tugas.sielekthor.repository.TipeDb;
 import java.util.List;
 
-public class TipeServiceImpl {
+@Service
+@Transactional
+public class TipeServiceImpl implements TipeService {
     @Autowired
     TipeDb tipeDb;
 
     @Override
-    public void addTipe(TipeModel tipeModel) {
-        tipeDb.save(tipeModel);
+    public TipeModel addTipe(TipeModel tipeModel) {
+        return tipeDb.save(tipeModel);
     }
-
-    @Override
-    public List<TipeModel> getAlTipe() { return tipeDb.findAll(Sort.by(Sort.Direction.ASC, "namaTipe")); }
-
     @Override
     public TipeModel getTipeById(Long id){
         return tipeDb.findById(id).get();
     }
+
+    @Override
+    public List<TipeModel> getAllTipe() {
+        return tipeDb.findAll(Sort.by(Sort.Direction.ASC, "namaTipe"));
+    }
+
 
     @Override
     public TipeModel deleteTipe(TipeModel tipe) {

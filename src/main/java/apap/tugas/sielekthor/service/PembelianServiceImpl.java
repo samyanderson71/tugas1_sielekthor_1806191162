@@ -1,13 +1,13 @@
 package apap.tugas.sielekthor.service;
 
 import apap.tugas.sielekthor.model.PembelianModel;
-
+import apap.tugas.sielekthor.repository.PembelianDb;
 import apap.tugas.sielekthor.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import apap.tugas.sielekthor.repository.PembelianDb;
+
 import java.util.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -31,13 +31,13 @@ public class PembelianServiceImpl implements PembelianService{
         public String checkNomorInvoice(PembelianModel pembelianModel) {
             String firstChara= "1" ;
             try {
-                firstChara = pembelianModel.getMemberModel().getNama().toLowerCase().substring(0,1);
+                firstChara = pembelianModel.getMemberModel().getNamaMember().toLowerCase().substring(0,1);
             }
-            catch (exception e){
-                firstChara = pembelianModel.getMemberModel().getNama().toLowerCase().substring(0);
+            catch (NoSuchElementException e){
+                firstChara = pembelianModel.getMemberModel().getNamaMember().toLowerCase().substring(0);
             }
             ;
-            String first = ((Integer.valueOf(firstChara)- 96) % 10).toString();
+            String first = Integer.toString((Integer.valueOf(firstChara)- 96) % 10);
 
 
             String second = pembelianModel.getNamaAdmin().substring(-1).toUpperCase();
@@ -91,22 +91,27 @@ public class PembelianServiceImpl implements PembelianService{
             return result;
         }
 
-        @Override
+    @Override
         public List<PembelianModel> getAllPembelian() { return pembelianDb.findAll(Sort.by(Sort.Direction.ASC, "namaPembelian")); }
 
-        @Override
+    @Override
+    public PembelianModel getByIdPembelian(Long idPembelian) {
+        return pembelianDb.findByIdPembelian(idPembelian).get();
+    }
+
+    @Override
         public PembelianModel getPembelianByNomorInvoice(String nomorInvoice){
             return pembelianDb.findByNomorInvoice(nomorInvoice).get();
         }
 
-        @Override
-        public PembelianModel updatePembelian(PembelianModel pembelianModel){
-            String nip = checkNomorInvoice(pembelianModel);
-
-            pembelianModel.setNomorInvoice(nip);
-            pembelianDb.save(pembelianModel);
-            return pembelianModel;
-        }
+//        @Override
+//        public PembelianModel updatePembelian(PembelianModel pembelianModel){
+//            String nomorInvoice = checkNomorInvoice(pembelianModel);
+//
+//            pembelianModel.setNomorInvoice(nomorInvoice);
+//            pembelianDb.save(pembelianModel);
+//            return pembelianModel;
+//        }
 
         @Override
         public PembelianModel deletePembelian(PembelianModel pembelianModel) {
@@ -116,30 +121,32 @@ public class PembelianServiceImpl implements PembelianService{
         }
 
         @Override
-        public List<PembelianModel> getPembelianMemberModelAndAkademiModel(MemberModel memberModel, TipeModel tipeModel) {
-            return pembelianDb.findByMemberModelAndTipeModel(memberModel, tipeModel);
+        public List<Boolean> getPembelianMemberModelAndIsCash(MemberModel memberModel, Boolean isCash) {
+            return pembelianDb.findByMemberModelAndIsCash(memberModel, isCash);
         }
 
         @Override
-        public List<PembelianModel> getPembelianMemberModel(MemberModel memberModel) {
+        public List<Boolean> getPembelianMemberModel(MemberModel memberModel) {
             return pembelianDb.findByMemberModel(memberModel);
         }
 
-        @Override
-        public List<PembelianModel> getPembelianTipeModel(TipeModel tipeModel) {
-            return pembelianDb.findByTipeModel(tipeModel);
+        public List<Boolean> getPembelianIsCash(Boolean isCash) {
+            return pembelianDb.findByIsCash(isCash);
         }
 
-        @Override
-        public List<PembelianModel> getStokBarangHabis(MemberModel memberModel){
-            return pembelianDb.findStokBarangHabis(memberModel);
-        }
+    @Override
+    public List<PembelianModel> getTotalPembelianMember() {
+        return null; //masih sementara
+    }
 
-        @Override
-        public List<PembelianModel> getTotalPembelianMember(){
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.MONTH, -1);
-            Date tanggal = cal.getTime();
-            return pembelianDb.findByThisMonth(tanggal);
-        }
+
+//        @Override
+//        public List<PembelianModel> getTotalPembelianMember(){
+//            Calendar cal = Calendar.getInstance();
+//            cal.add(Calendar.MONTH, -1);
+//            Date tanggal = cal.getTime();
+//            return pembelianDb.findByThisMonth(tanggal);
+//        }
+
+
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tambah Barang</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<br>
+<div class = "card">
+    <div class= "card-header" style = "width: 50%; margin: auto;">
+        <h1 class = "text-center">Tambah Barang</h1>
+    </div>
+    <div class= "card-body">
+        <div class = "container">
+            <div class= "row justify-content-center">
+                <div class= "col-5">
+                    <form th:action="@{/barang/add}" th:object="${barang}" method="POST">
+                        <div class="form-group">
+                            <label>Nama Barang :</label>
+                            <input type="text" th:field="${barang.nama}" class="form-control" placeholder="Masukkan nama Barang" th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Kode Barang :</label>
+                            <input type="text" th:field="${barang.kodeBarang}" class="form-control" placeholder="Masukkan Kode Barang" th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Merk Barang :</label>
+                            <input class="form-control" type="text" th:field="${barang.merk}" placeholder="Masukkan merk Barang" th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Stok Barang :</label>
+                            <input class="form-control" type="text" th:field="${barang.stok}" placeholder="Sisa stok Barang" th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Garansi Toko :</label>
+                            <input class="form-control" type="text" th:field="${barang.jumlahGaransi}" placeholder="Masukkan Garansi Barang" th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Deskripsi :</label>
+                            <input class="form-control" type="text" th:field="${barang.deskripsiBarang}" placeholder="Masukkan Deskripsi Barang" th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipe :</label>
+                            <select class="form-control" th:field="${barang.tipeModel}" aria-placeholder="Pilih Tipe" required>
+                                <option value="" disabled selected>Pilih Tipe</option>
+                                <option th:each="tipe : ${listTipe}"
+                                        th:value="${tipe.idTipe}"
+                                        th:text="${tipe.namaTipe}"> </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga :</label>
+                            <input class="form-control" type="text" th:field="${barang.hargaBarang}" placeholder="Masukkan Harga" th:required="required"/>
+                        </div>
+                        <button class = "btn btn-outline-success" type="submit" value="Submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

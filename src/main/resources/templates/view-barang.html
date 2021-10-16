@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lihat Barang</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar(current='Home')"></nav>
+<br>
+<br>
+<div class = "card">
+    <div class= "card-header bg-primary" style = "width: 50%; margin: auto;">
+        <h1 class = "text-center" style="color: aliceblue;">Detail Barang</h1>
+    </div>
+    <div class= "card-body">
+        <div class = "container">
+            <div class= "row justify-content-center">
+                <div class= "col-5">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p>Nama Barang</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.nama}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Kode Barang</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.kodeBarang}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Merk barang</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.merk}"></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <p>Stok Barang</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.stok}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Garansi Toko</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.jumlahGaransi}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Deskripsi</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.deskripsiBarang}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Tipe Barang</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.tipeModel.getNama()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Deskripsi</p>
+                                </div>
+                                <div class="col">
+                                    <p th:text = "${barang.hargaBarang}"></p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class = "float-sm-right">
+                                <a th:href="@{/barang/ubah/} + ${barang.idBarang}" class="btn btn-outline-primary">Ubah</a>
+                                <a th:href="@{/barang/delete/} + ${barang.idBarang}" class="btn btn-outline-danger">Hapus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
